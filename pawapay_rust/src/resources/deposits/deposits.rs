@@ -3,6 +3,35 @@ use reqwest::{Error, StatusCode};
 use crate::config::network_manager::NetworkManager;
 use crate::structs::pawapay::{PaymentTransaction, ResendCallbackResponseStatus};
 
+
+/// Sends a payment transaction to a remote service.
+///
+/// This asynchronous function takes a `PaymentTransaction` and a `NetworkManager` configuration,
+/// sends the transaction to the specified endpoint, and awaits the response. If the response status
+/// is OK, it attempts to deserialize the response body into a `PaymentTransaction` object and return it.
+/// Otherwise, it returns an error indicating the failure.
+///
+/// # Parameters
+/// - `payment_transaction`: The `PaymentTransaction` object containing the transaction details to be sent.
+/// - `config`: A reference to a `NetworkManager` containing the configuration settings such as the base URL and API key.
+///
+/// # Returns
+/// Returns a `Result` that is either:
+/// - Ok(`PaymentTransaction`): A `PaymentTransaction` object parsed from the response body if the request was successful.
+/// - Err(`Error`): An error occurred during the request or while parsing the response.
+///
+/// # Errors
+/// This function can return an `Error` in several cases, including:
+/// - Network issues or server not responding.
+/// - The response status from the server is not OK.
+/// - Failure to parse the response body into a `PaymentTransaction` object.
+/// with appropriate parameters as per your implementation.
+pub async fn send_payment_transaction(
+    payment_transaction: PaymentTransaction,
+    config: &NetworkManager,
+) -> Result<PaymentTransaction, Error> {
+    // Function implementation remains
+
 pub async fn send_payment_transaction(
     payment_transaction: PaymentTransaction,
     config: &NetworkManager,
