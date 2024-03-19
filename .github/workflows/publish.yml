@@ -1,0 +1,70 @@
+name: Build, Version, and Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: yarn install
+      - name: Format Code
+        run: yarn format
+
+  publish:
+    needs: [ 'checkout' ]
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies
+        run: yarn install
+      - name: Format Code
+        run: yarn format
+      - name: Build the package
+        run: yarn build
+      - name: Bump version & push
+        run: |
+          git config --global user.name 'JoelFickson CI USER'
+          git config --global user.email 'joelfickson@users.noreply.github.com'
+
+          npm version patch -m "Bump version to %s [skip ci]"
+          git push && git push --tags
+      - name: Generate Release Notes
+        id: release_notes
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0 $(git rev-list --tags --skip=1 --max-count=1))
+          RELEASE_NOTES=$(git log $LAST_TAG..HEAD --pretty=format:"- %s")
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+          echo "$RELEASE_NOTES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: Push to NPM Registry
+        run: npm publish --tag latest
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+          body: ${{ env.RELEASE_NOTES }}
