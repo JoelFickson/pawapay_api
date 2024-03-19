@@ -85,7 +85,6 @@ export interface PawaPayPayoutTransaction {
   payoutId: string;
   status: PayoutStatus;
   created: string;
-
 }
 
 export interface PayoutTransaction {
@@ -97,7 +96,6 @@ export interface PayoutTransaction {
   statementDescription: string;
   country: string;
   customerTimestamp?: string;
-
 }
 
 export interface ResendCallbackResponse {
