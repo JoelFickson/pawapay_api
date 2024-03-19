@@ -1,7 +1,7 @@
 {
   "name": "pawapay_api",
   "version": "0.0.1",
-  "description": "",
+  "description": "Pawapay Gateway API Wrapper",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc -p . && tsc-alias",
