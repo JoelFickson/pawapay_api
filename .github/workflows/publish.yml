@@ -6,6 +6,10 @@ on:
 jobs:
   checkout:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./pawapay_node
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,6 +30,10 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./pawapay_node
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

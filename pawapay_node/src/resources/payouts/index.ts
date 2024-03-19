@@ -33,20 +33,6 @@ export default class Payouts {
    *
    * @throws {Error} This method may throw an error if the request fails due to reasons such as network issues,
    * invalid transaction details, or server-side problems. Such errors are caught and handled by `networkHandler.handleErrors`.
-   *
-   * @example
-   * const payoutTransaction = {
-   *   phoneNumber: "265993456789",
-   *   amount: 100,
-   *   payoutId: "unique_payout_id",
-   *   currency: "MWK",
-   *   correspondent: "correspondent_code",
-   *   statementDescription: "Payout for services rendered"
-   * };
-   *
-   * sendPayout(payoutTransaction)
-   *   .then(response => console.log("Payout successful:", response))
-   *   .catch(error => console.error("Payout failed:", error));
    */
   async sendPayout(transaction: PayoutTransaction): Promise<PawaPayPayoutTransaction | unknown> {
 
@@ -79,6 +65,18 @@ export default class Payouts {
 
   }
 
+  /**
+   * Asynchronously processes a bulk payout transaction request by sending multiple payout transactions to the PawaPay service.
+   * Each transaction is formatted according to the requirements before sending. This method is useful for processing multiple
+   * payouts in a single operation, improving efficiency and reducing the number of individual requests.
+   *
+   * @param {PayoutTransaction[]} transactions - An array of `PayoutTransaction` objects representing the individual transactions to be processed in bulk.
+   *
+   * @returns {Promise<PawaPayPayoutTransaction[] | unknown>} A promise that resolves to an array of `PawaPayPayoutTransaction` objects if the bulk payout is successfully processed.
+   * Each object in the array represents the response for the corresponding payout transaction. If an error occurs during the process,
+   * the promise resolves to an unknown type, and the error is handled by the `networkHandler`'s error handling method.
+   */
+
   async sendBulkPayout(transactions: PayoutTransaction[]): Promise<PawaPayPayoutTransaction[] | unknown> {
     try {
 
@@ -107,6 +105,18 @@ export default class Payouts {
       return this.networkHandler.handleErrors(error);
     }
   }
+
+  /**
+   * Asynchronously retrieves the details of a specific payout transaction by its unique identifier (depositId).
+   * This method constructs the request URL using the depositId and makes a GET request to the PawaPay service endpoint
+   * to obtain the transaction details. It is designed to fetch information for individual payout transactions.
+   *
+   * @param {string} depositId - The unique identifier for the payout transaction whose details are being retrieved.
+   *
+   * @returns {Promise<PawaPayPayoutTransaction | unknown>} A promise that resolves to a `PawaPayPayoutTransaction` object if the payout details are successfully retrieved.
+   * This object contains the details of the specified payout transaction. If an error occurs during the retrieval process,
+   * the promise resolves to an unknown type. The method includes error handling that processes the error using the `networkHandler`'s error handling mechanism.
+   */
 
   async getPayout(depositId: string): Promise<PawaPayPayoutTransaction | unknown> {
     try {
