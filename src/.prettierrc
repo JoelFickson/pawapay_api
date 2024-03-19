@@ -1,0 +1,34 @@
+{
+  "bracketSpacing": true,
+  "printWidth": 100,
+  "proseWrap": "preserve",
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "useTabs": true,
+  "parser": "typescript",
+  "arrowParens": "always",
+  "requirePragma": true,
+  "insertPragma": true,
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": "*.json",
+      "options": {
+        "singleQuote": false,
+        "tabWidth": 2,
+        "useTabs": true
+      }
+    },
+    {
+      "files": ".*rc",
+      "options": {
+        "singleQuote": false,
+        "parser": "json",
+        "tabWidth": 2,
+        "useTabs": true
+      }
+    }
+  ]
+}
