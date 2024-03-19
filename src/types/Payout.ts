@@ -31,13 +31,13 @@ export interface SuspiciousActivityReport {
 
 export interface PaymentTransaction {
   depositId: string;
-  status: string;
+  status: PaymentStatus;
   requestedAmount: string;
   depositedAmount: string;
-  currency: string;
+  currency: MoMoCurrency;
   country: string;
   payer: Payer;
-  correspondent: string;
+  correspondent: Correspondent;
   statementDescription: string;
   customerTimestamp: string;
   created: string;

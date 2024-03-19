@@ -1,15 +1,14 @@
 import { autoInjectable, singleton } from "tsyringe";
-import PawapayBaseService from "@utils/PawapayBaseService";
 import NetworkHandler from "@config/NetworkManager";
 import { RefundResponse, RefundTransaction } from "../../types/Payout";
 
 @singleton()
 @autoInjectable()
-class Refunds {
+export default class Refunds {
 
-  readonly baseEndpoint;
+  private readonly baseEndpoint;
 
-  constructor(protected networkHandler: NetworkHandler, protected pawapayBaseService: PawapayBaseService) {
+  constructor(protected networkHandler: NetworkHandler) {
     this.baseEndpoint = "/refunds";
   }
 
@@ -43,5 +42,3 @@ class Refunds {
   }
 
 }
-
-export default Refunds;

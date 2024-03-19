@@ -8,17 +8,14 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@utils/*": [
-        "utils/*"
+      "@resources/*": [
+        "resources/*"
       ],
       "@config/*": [
         "config/*"
       ],
-      "@middleware/*": [
-        "middleware/*"
-      ] ,
-      "@types/*": [
-        "types/*"
+      "@utils/*": [
+        "utils/*"
       ]
     },
     "declaration": true,
@@ -39,13 +36,14 @@
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*",
-    "types/**/*.d.ts"
+    "src/**/*"
   ],
   "exclude": [
-    "node_modules",
+    "node_modules"
   ]
 }
