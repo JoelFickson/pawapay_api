@@ -61,6 +61,15 @@ jobs:
           npm version patch -m "Bump version to %s [skip ci]"
           git push && git push --tags
 
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'CI User'
+          git config --global user.email 'CI@users.noreply.github.com'
+          git add .
+          git commit -m "Bump package version [skip ci]"
+          git push
+
       - name: Push to NPM Registry
         run: npm publish --tag latest
         env:
