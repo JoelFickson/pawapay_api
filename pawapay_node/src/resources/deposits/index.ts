@@ -9,14 +9,16 @@ import {
   ResendCallbackResponse
 } from "../../types/Payout";
 import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
+import InternalLogger from "@utils/InternalLogger";
 
 @autoInjectable()
 @singleton()
-export default class Deposits {
+export default class Deposits extends InternalLogger {
 
   private readonly baseEndpoint;
 
   constructor(protected networkHandler: NetworkHandler, protected pawapayBaseService: PawapayBaseService) {
+    super("Deposits");
     this.baseEndpoint = "/deposits";
   }
 
@@ -66,7 +68,7 @@ export default class Deposits {
 
       return response.data;
     } catch (error: unknown) {
-      return this.networkHandler.handleErrors(error);
+      return this.networkHandler.handleErrors(error, this.logSuccess);
 
     }
 
@@ -95,9 +97,12 @@ export default class Deposits {
       const endPoint = this.baseEndpoint + `/${depositId}`;
       const response = await this.networkHandler.getInstance().get(endPoint);
 
+      this.logSuccess(response);
+
       return response.data;
     } catch (error) {
-      return this.networkHandler.handleErrors(error);
+      
+      return this.networkHandler.handleErrors(error, this.logError);
     }
 
   }
@@ -119,13 +124,16 @@ export default class Deposits {
 
   async resendCallback(depositId: string): Promise<ResendCallbackResponse | PawaPayNetworkResponse> {
     try {
+
       const { data } = await this.networkHandler.getInstance().post(`/deposits/resend-callback`, {
         depositId: depositId
       });
 
+      this.logSuccess(data);
+
       return data;
     } catch (error: unknown) {
-      return this.networkHandler.handleErrors(error);
+      return this.networkHandler.handleErrors(error, this.logError);
     }
   }
 

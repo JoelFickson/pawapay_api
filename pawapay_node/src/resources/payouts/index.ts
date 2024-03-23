@@ -3,15 +3,17 @@ import { PawaPayPayoutTransaction, PayoutTransaction } from "../../types/Payout"
 import { autoInjectable, singleton } from "tsyringe";
 import PawapayBaseService from "@utils/PawapayBaseService";
 import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
+import InternalLogger from "@utils/InternalLogger";
 
 @autoInjectable()
 @singleton()
-export default class Payouts {
+export default class Payouts extends InternalLogger {
 
   private readonly baseEndpoint;
 
   constructor(protected networkHandler: NetworkHandler, protected pawapayBaseService: PawapayBaseService) {
-    this.baseEndpoint = "/deposits";
+    super("Payouts");
+    this.baseEndpoint = "/payouts";
   }
 
   /**
@@ -58,10 +60,12 @@ export default class Payouts {
         }
       );
 
+      this.logSuccess(response);
+
       return response.data;
     } catch (error) {
 
-      return this.networkHandler.handleErrors(error);
+      return this.networkHandler.handleErrors(error, this.logSuccess);
     }
 
   }
@@ -101,9 +105,11 @@ export default class Payouts {
         { formattedTransactions }
       );
 
+      this.logSuccess(response);
+
       return response.data;
     } catch (error) {
-      return this.networkHandler.handleErrors(error);
+      return this.networkHandler.handleErrors(error, this.logError);
     }
   }
 
@@ -122,9 +128,11 @@ export default class Payouts {
   async getPayout(depositId: string): Promise<PawaPayPayoutTransaction | PawaPayNetworkResponse> {
     try {
       const response = await this.networkHandler.getInstance().get(`${this.baseEndpoint}/${depositId}`);
+      this.logSuccess(response);
+
       return response.data;
     } catch (error) {
-      return this.networkHandler.handleErrors(error);
+      return this.networkHandler.handleErrors(error, this.logError);
     }
   }
 

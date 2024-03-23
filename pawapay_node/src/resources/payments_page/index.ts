@@ -2,15 +2,16 @@ import NetworkHandler from "@config/NetworkManager";
 import { autoInjectable, singleton } from "tsyringe";
 import { InitiatePaymentResponse, PaymentData } from "../../types/Payments";
 import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
-import * as console from "node:console";
+import InternalLogger from "@utils/InternalLogger";
 
 @autoInjectable()
 @singleton()
-export default class PaymentsPage {
+export default class PaymentsPage extends InternalLogger {
 
   private readonly baseEndpoint;
 
   constructor(protected networkHandler: NetworkHandler) {
+    super("PaymentsPage");
     this.baseEndpoint = "v1/widget/sessions";
   }
 
@@ -46,14 +47,15 @@ export default class PaymentsPage {
           reason: paymentData.reason
         });
 
-      console.log(response);
+      this.logSuccess(response);
 
       return {
         redirectUrl: response.data.redirectUrl,
         error: false
       };
     } catch (error: unknown) {
-      return this.networkHandler.handleErrors(error);
+      this.logError(error);
+      return this.networkHandler.handleErrors(error, this.logError);
     }
   }
 }

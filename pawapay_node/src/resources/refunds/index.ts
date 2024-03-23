@@ -2,14 +2,16 @@ import { autoInjectable, singleton } from "tsyringe";
 import NetworkHandler from "@config/NetworkManager";
 import { RefundResponse, RefundTransaction } from "../../types/Payout";
 import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
+import InternalLogger from "@utils/InternalLogger";
 
 @singleton()
 @autoInjectable()
-export default class Refunds {
+export default class Refunds extends InternalLogger {
 
   private readonly baseEndpoint;
 
   constructor(protected networkHandler: NetworkHandler) {
+    super("Refunds");
     this.baseEndpoint = "/refunds";
   }
 
@@ -37,10 +39,11 @@ export default class Refunds {
         }
       );
 
+      this.logSuccess(response);
       return response.data;
 
     } catch (error: unknown) {
-      return this.networkHandler.handleErrors(error);
+      return this.networkHandler.handleErrors(error, this.logSuccess);
     }
   }
 
@@ -61,9 +64,10 @@ export default class Refunds {
       const endPoint = this.baseEndpoint + `/${refundId}`;
       const response = await this.networkHandler.getInstance().get(endPoint);
 
+      this.logSuccess(response);
       return response.data;
     } catch (error: unknown) {
-      return this.networkHandler.handleErrors(error);
+      return this.networkHandler.handleErrors(error, this.logError);
     }
   }
 
