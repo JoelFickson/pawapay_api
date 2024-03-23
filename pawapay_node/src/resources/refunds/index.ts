@@ -43,7 +43,8 @@ export default class Refunds extends InternalLogger {
       return response.data;
 
     } catch (error: unknown) {
-      return this.networkHandler.handleErrors(error, this.logSuccess);
+      this.logError(error);
+      return this.networkHandler.handleErrors(error);
     }
   }
 
@@ -67,7 +68,8 @@ export default class Refunds extends InternalLogger {
       this.logSuccess(response);
       return response.data;
     } catch (error: unknown) {
-      return this.networkHandler.handleErrors(error, this.logError);
+      this.logError(error);
+      return this.networkHandler.handleErrors(error);
     }
   }
 

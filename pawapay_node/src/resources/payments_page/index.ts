@@ -55,7 +55,7 @@ export default class PaymentsPage extends InternalLogger {
       };
     } catch (error: unknown) {
       this.logError(error);
-      return this.networkHandler.handleErrors(error, this.logError);
+      return this.networkHandler.handleErrors(error);
     }
   }
 }

@@ -68,7 +68,8 @@ export default class Deposits extends InternalLogger {
 
       return response.data;
     } catch (error: unknown) {
-      return this.networkHandler.handleErrors(error, this.logSuccess);
+      this.logError(error);
+      return this.networkHandler.handleErrors(error);
 
     }
 
@@ -101,8 +102,8 @@ export default class Deposits extends InternalLogger {
 
       return response.data;
     } catch (error) {
-      
-      return this.networkHandler.handleErrors(error, this.logError);
+      this.logError(error);
+      return this.networkHandler.handleErrors(error);
     }
 
   }
@@ -133,7 +134,8 @@ export default class Deposits extends InternalLogger {
 
       return data;
     } catch (error: unknown) {
-      return this.networkHandler.handleErrors(error, this.logError);
+      this.logError(error);
+      return this.networkHandler.handleErrors(error);
     }
   }
 

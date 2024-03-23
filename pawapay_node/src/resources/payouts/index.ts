@@ -65,7 +65,9 @@ export default class Payouts extends InternalLogger {
       return response.data;
     } catch (error) {
 
-      return this.networkHandler.handleErrors(error, this.logSuccess);
+      this.logError(error);
+
+      return this.networkHandler.handleErrors(error);
     }
 
   }
@@ -109,7 +111,8 @@ export default class Payouts extends InternalLogger {
 
       return response.data;
     } catch (error) {
-      return this.networkHandler.handleErrors(error, this.logError);
+      this.logError(error);
+      return this.networkHandler.handleErrors(error);
     }
   }
 
@@ -132,7 +135,9 @@ export default class Payouts extends InternalLogger {
 
       return response.data;
     } catch (error) {
-      return this.networkHandler.handleErrors(error, this.logError);
+
+      this.logError(error);
+      return this.networkHandler.handleErrors(error);
     }
   }
 

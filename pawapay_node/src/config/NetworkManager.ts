@@ -2,7 +2,6 @@ import axios, { AxiosInstance, AxiosRequestHeaders } from "axios";
 import { autoInjectable, singleton } from "tsyringe";
 import Constants from "@config/Constants";
 import { PawaPayNetworkResponse } from "../types/PawaPayErrorResponse";
-import { LogErrorFunctionType } from "@utils/InternalLogger";
 
 @autoInjectable()
 @singleton()
@@ -35,14 +34,12 @@ class NetworkHandler {
     return this.axiosInstance;
   }
 
-  public handleErrors(error: unknown, logSuccess: LogErrorFunctionType): PawaPayNetworkResponse {
+  public handleErrors(error: unknown): PawaPayNetworkResponse {
 
     let errorMessage = "An unknown error occurred";
     let statusCode = 500;
     let errorObject = "{}";
-
-    logSuccess(error);
-
+    
     if (axios.isAxiosError(error) && error.response) {
       statusCode = error.response.status;
 
