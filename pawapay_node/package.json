@@ -1,6 +1,6 @@
 {
   "name": "pawapay_api",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Pawapay Gateway API Wrapper",
   "main": "./dist/index.js",
   "scripts": {
