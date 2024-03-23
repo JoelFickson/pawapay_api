@@ -2,6 +2,7 @@ import NetworkHandler from "@config/NetworkManager";
 import { autoInjectable, singleton } from "tsyringe";
 import { InitiatePaymentResponse, PaymentData } from "../../types/Payments";
 import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
+import * as console from "node:console";
 
 @autoInjectable()
 @singleton()
@@ -40,10 +41,12 @@ export default class PaymentsPage {
         .post(this.baseEndpoint, {
           depositId: paymentData.deposit_id,
           amount: paymentData.price.toString(),
-          returnUrl: process.env.PAWA_PAY_RETURN_URL,
+          returnUrl: paymentData.returnUrl,
           country: paymentData.basePaymentCountryIso,
           reason: paymentData.reason
         });
+
+      console.log(response);
 
       return {
         redirectUrl: response.data.redirectUrl,
