@@ -34,7 +34,7 @@ export default class PaymentsPage extends InternalLogger {
    * It's recommended to handle errors appropriately in the calling context.
    *
    * @throws {PawaPayNetworkResponse} Throws an error if the request fails for reasons such as network issues,
-   * invalid payment data, or server errors. Errors are handled by `networkHandler.handleErrors`.
+   * invalid payment data, or server errors. `.
    */
   public async initiatePayment(paymentData: PaymentData): Promise<InitiatePaymentResponse | PawaPayNetworkResponse> {
     try {
@@ -47,7 +47,7 @@ export default class PaymentsPage extends InternalLogger {
           reason: paymentData.reason
         });
 
-      this.logSuccess(response);
+      // this.logSuccess(response);
 
       return {
         redirectUrl: response.data.redirectUrl,
