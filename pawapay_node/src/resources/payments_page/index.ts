@@ -1,6 +1,7 @@
 import NetworkHandler from "@config/NetworkManager";
 import { autoInjectable, singleton } from "tsyringe";
 import { InitiatePaymentResponse, PaymentData } from "../../types/Payments";
+import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
 
 @autoInjectable()
 @singleton()
@@ -25,15 +26,15 @@ export default class PaymentsPage {
    * - `basePaymentCountryIso`: ISO country code representing the base country for the payment.
    * - `reason`: A text description of the reason for the payment.
    *
-   * @returns {Promise<InitiatePaymentResponse | unknown>} A promise that resolves to an object containing
+   * @returns {Promise<InitiatePaymentResponse | PawaPayNetworkResponse>} A promise that resolves to an object containing
    * the `redirectUrl` for the payment completion if successful, and an `error` flag set to `false`.
    * In case of failure, the promise may resolve to an `unknown` type or be rejected with an error.
    * It's recommended to handle errors appropriately in the calling context.
    *
-   * @throws {Error} Throws an error if the request fails for reasons such as network issues,
+   * @throws {PawaPayNetworkResponse} Throws an error if the request fails for reasons such as network issues,
    * invalid payment data, or server errors. Errors are handled by `networkHandler.handleErrors`.
    */
-  public async initiatePayment(paymentData: PaymentData): Promise<InitiatePaymentResponse | unknown> {
+  public async initiatePayment(paymentData: PaymentData): Promise<InitiatePaymentResponse | PawaPayNetworkResponse> {
     try {
       const response = await this.networkHandler.getInstance()
         .post(this.baseEndpoint, {
@@ -49,7 +50,7 @@ export default class PaymentsPage {
         error: false
       };
     } catch (error: unknown) {
-      this.networkHandler.handleErrors(error);
+      return this.networkHandler.handleErrors(error);
     }
   }
 }

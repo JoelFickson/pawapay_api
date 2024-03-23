@@ -12,5 +12,6 @@ export interface InitiatePaymentResponse {
     redirectUrl: string;
     error: boolean;
     message?: string;
-
 }
+
+

@@ -1,6 +1,7 @@
 import { autoInjectable, singleton } from "tsyringe";
 import NetworkHandler from "@config/NetworkManager";
 import { RefundResponse, RefundTransaction } from "../../types/Payout";
+import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
 
 @singleton()
 @autoInjectable()
@@ -20,12 +21,12 @@ export default class Refunds {
    * @param {any} refundData - An object containing the refund request details. The structure of this object includes
    * `refundId`, the unique identifier for the refund request, and `depositId`, the unique identifier of the original deposit transaction to be refunded.
    *
-   * @returns {Promise<RefundResponse | unknown>} A promise that resolves to a `RefundResponse` object if the refund request is successfully processed.
+   * @returns {Promise<RefundResponse | PawaPayNetworkResponse>} A promise that resolves to a `RefundResponse` object if the refund request is successfully processed.
    * The `RefundResponse` type should detail the outcome of the refund request. In case of an error during the request processing,
    * the promise resolves to an unknown type, with the error handled by the `networkHandler`'s error handling mechanism.
    */
 
-  async createRefundRequest(refundData: any): Promise<RefundResponse | unknown> {
+  async createRefundRequest(refundData: any): Promise<RefundResponse | PawaPayNetworkResponse> {
     try {
 
       const response = await this.networkHandler.getInstance().post(
@@ -39,7 +40,7 @@ export default class Refunds {
       return response.data;
 
     } catch (error: unknown) {
-      this.networkHandler.handleErrors(error);
+      return this.networkHandler.handleErrors(error);
     }
   }
 
@@ -50,19 +51,19 @@ export default class Refunds {
    *
    * @param {string} refundId - The unique identifier for the refund transaction whose status is being queried.
    *
-   * @returns {Promise<RefundTransaction | unknown>} A promise that resolves to a `RefundTransaction` object if the refund status is successfully retrieved.
+   * @returns {Promise<RefundTransaction | PawaPayNetworkResponse>} A promise that resolves to a `RefundTransaction` object if the refund status is successfully retrieved.
    * The `RefundTransaction` type is expected to contain comprehensive details about the refund transaction, including its current status.
    * If an error occurs during the retrieval process, the promise resolves to an unknown type. Errors are handled using the `networkHandler`'s error handling process.
    */
 
-  async getRefundStatus(refundId: string): Promise<RefundTransaction | unknown> {
+  async getRefundStatus(refundId: string): Promise<RefundTransaction | PawaPayNetworkResponse> {
     try {
       const endPoint = this.baseEndpoint + `/${refundId}`;
       const response = await this.networkHandler.getInstance().get(endPoint);
 
       return response.data;
     } catch (error: unknown) {
-      this.networkHandler.handleErrors(error);
+      return this.networkHandler.handleErrors(error);
     }
   }
 

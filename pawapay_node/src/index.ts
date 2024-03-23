@@ -10,6 +10,9 @@ const pawaPayRefunds = container.resolve(Refunds);
 const pawaPayDeposits = container.resolve(Deposits);
 const pawaPayPayouts = container.resolve(Payouts);
 
+export * from "./types/Payments";
+export * from "./types/Payout";
+
 export {
   pawaPaymentsPage,
   pawaPayPayouts,

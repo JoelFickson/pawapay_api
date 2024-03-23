@@ -2,6 +2,7 @@ import NetworkHandler from "@config/NetworkManager";
 import { PawaPayPayoutTransaction, PayoutTransaction } from "../../types/Payout";
 import { autoInjectable, singleton } from "tsyringe";
 import PawapayBaseService from "@utils/PawapayBaseService";
+import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
 
 @autoInjectable()
 @singleton()
@@ -27,14 +28,14 @@ export default class Payouts {
    *  - `correspondent`: The correspondent code for the transaction.
    *  - `statementDescription`: A description for the statement.
    *
-   * @returns {Promise<PawaPayPayoutTransaction | unknown>} A promise that resolves to the payout transaction response object
+   * @returns {Promise<PawaPayPayoutTransaction | PawaPayNetworkResponse>} A promise that resolves to the payout transaction response object
    * if the request is successful. The object includes all relevant details about the transaction response from the server.
    * In the case of an error, the promise resolves to an `unknown` type that represents the handled error response.
    *
-   * @throws {Error} This method may throw an error if the request fails due to reasons such as network issues,
+   * @throws {PawaPayNetworkResponse} This method may throw an error if the request fails due to reasons such as network issues,
    * invalid transaction details, or server-side problems. Such errors are caught and handled by `networkHandler.handleErrors`.
    */
-  async sendPayout(transaction: PayoutTransaction): Promise<PawaPayPayoutTransaction | unknown> {
+  async sendPayout(transaction: PayoutTransaction): Promise<PawaPayPayoutTransaction | PawaPayNetworkResponse> {
 
     try {
       const phoneNumber = this.pawapayBaseService.formatPhoneNumber(transaction.phoneNumber);
@@ -72,12 +73,12 @@ export default class Payouts {
    *
    * @param {PayoutTransaction[]} transactions - An array of `PayoutTransaction` objects representing the individual transactions to be processed in bulk.
    *
-   * @returns {Promise<PawaPayPayoutTransaction[] | unknown>} A promise that resolves to an array of `PawaPayPayoutTransaction` objects if the bulk payout is successfully processed.
+   * @returns {Promise<PawaPayPayoutTransaction[] | PawaPayNetworkResponse>} A promise that resolves to an array of `PawaPayPayoutTransaction` objects if the bulk payout is successfully processed.
    * Each object in the array represents the response for the corresponding payout transaction. If an error occurs during the process,
    * the promise resolves to an unknown type, and the error is handled by the `networkHandler`'s error handling method.
    */
 
-  async sendBulkPayout(transactions: PayoutTransaction[]): Promise<PawaPayPayoutTransaction[] | unknown> {
+  async sendBulkPayout(transactions: PayoutTransaction[]): Promise<PawaPayPayoutTransaction[] | PawaPayNetworkResponse> {
     try {
 
       const formattedTransactions = transactions.map(transaction => {
@@ -113,12 +114,12 @@ export default class Payouts {
    *
    * @param {string} depositId - The unique identifier for the payout transaction whose details are being retrieved.
    *
-   * @returns {Promise<PawaPayPayoutTransaction | unknown>} A promise that resolves to a `PawaPayPayoutTransaction` object if the payout details are successfully retrieved.
+   * @returns {Promise<PawaPayPayoutTransaction | PawaPayNetworkResponse>} A promise that resolves to a `PawaPayPayoutTransaction` object if the payout details are successfully retrieved.
    * This object contains the details of the specified payout transaction. If an error occurs during the retrieval process,
    * the promise resolves to an unknown type. The method includes error handling that processes the error using the `networkHandler`'s error handling mechanism.
    */
 
-  async getPayout(depositId: string): Promise<PawaPayPayoutTransaction | unknown> {
+  async getPayout(depositId: string): Promise<PawaPayPayoutTransaction | PawaPayNetworkResponse> {
     try {
       const response = await this.networkHandler.getInstance().get(`${this.baseEndpoint}/${depositId}`);
       return response.data;
