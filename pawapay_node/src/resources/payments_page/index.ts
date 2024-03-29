@@ -52,7 +52,7 @@ export default class PaymentsPage extends InternalLogger {
       return {
         redirectUrl: response.data.redirectUrl,
         error: false
-      };
+      } as InitiatePaymentResponse;
     } catch (error: unknown) {
       this.logError(error);
       return this.networkHandler.handleErrors(error);

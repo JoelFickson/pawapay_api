@@ -66,7 +66,7 @@ export default class Deposits extends InternalLogger {
         }
       );
 
-      return response.data;
+      return response.data as PawaPayPayoutTransaction;
     } catch (error: unknown) {
       this.logError(error);
       return this.networkHandler.handleErrors(error);
@@ -100,7 +100,7 @@ export default class Deposits extends InternalLogger {
 
       this.logSuccess(response);
 
-      return response.data;
+      return response.data as PaymentTransaction[];
     } catch (error) {
       this.logError(error);
       return this.networkHandler.handleErrors(error);

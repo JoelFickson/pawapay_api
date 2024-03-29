@@ -40,7 +40,7 @@ export default class Refunds extends InternalLogger {
       );
 
       this.logSuccess(response);
-      return response.data;
+      return response.data as RefundResponse;
 
     } catch (error: unknown) {
       this.logError(error);
@@ -66,7 +66,7 @@ export default class Refunds extends InternalLogger {
       const response = await this.networkHandler.getInstance().get(endPoint);
 
       this.logSuccess(response);
-      return response.data;
+      return response.data as RefundTransaction;
     } catch (error: unknown) {
       this.logError(error);
       return this.networkHandler.handleErrors(error);

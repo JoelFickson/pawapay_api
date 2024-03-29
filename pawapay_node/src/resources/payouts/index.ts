@@ -62,7 +62,7 @@ export default class Payouts extends InternalLogger {
 
       this.logSuccess(response);
 
-      return response.data;
+      return response.data as PawaPayPayoutTransaction;
     } catch (error) {
 
       this.logError(error);
@@ -109,7 +109,7 @@ export default class Payouts extends InternalLogger {
 
       this.logSuccess(response);
 
-      return response.data;
+      return response.data as PawaPayPayoutTransaction[];
     } catch (error) {
       this.logError(error);
       return this.networkHandler.handleErrors(error);
@@ -133,7 +133,7 @@ export default class Payouts extends InternalLogger {
       const response = await this.networkHandler.getInstance().get(`${this.baseEndpoint}/${depositId}`);
       this.logSuccess(response);
 
-      return response.data;
+      return response.data as PawaPayPayoutTransaction;
     } catch (error) {
 
       this.logError(error);
