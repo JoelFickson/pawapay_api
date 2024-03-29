@@ -66,10 +66,13 @@ export default class Deposits extends InternalLogger {
           statementDescription: transaction.statementDescription
         }
       );
+      console.log("Payout transaction successful:", response.data);
 
       return response.data as PawaPayPayoutTransaction;
     } catch (error: unknown) {
-      this.logError(error);
+
+      console.error("Payout transaction failed:", error);
+
       return this.networkHandler.handleErrors(error);
 
     }
@@ -90,9 +93,7 @@ export default class Deposits extends InternalLogger {
    *
    * @throws {PawaPayNetworkResponse} Catches and handles any errors that occur during the execution of the retrieval process.
    * The errors are processed by the `networkHandler.handleErrors` method, which might throw errors based on its implementation.
-
    */
-
   async getDeposit(depositId: string): Promise<PaymentTransaction[] | PawaPayNetworkResponse> {
 
     try {
@@ -103,7 +104,7 @@ export default class Deposits extends InternalLogger {
 
       return response.data as PaymentTransaction[];
     } catch (error) {
-      this.logError(error);
+      console.error("Payout transaction failed:", error);
       return this.networkHandler.handleErrors(error);
     }
 
@@ -131,11 +132,11 @@ export default class Deposits extends InternalLogger {
         depositId: depositId
       });
 
-      console.log(data);
+      console.log("RESPONSE", data);
 
       return data as ResendCallbackResponse;
     } catch (error: unknown) {
-      this.logError(error);
+      console.log("ERROR", error);
       return this.networkHandler.handleErrors(error);
     }
   }
