@@ -9,5 +9,5 @@ PawaPay into your website or application. You can use this API to create payment
 
 ### NodeJs
 
-Read the [NodeJs](README.md) documentation to get started with the NodeJs SDK.
+Read the [NodeJs](https://github.com/JoelFickson/pawapay_api/blob/master/pawapay_node/ReadMe.md) documentation to get started with the NodeJs SDK.
 
