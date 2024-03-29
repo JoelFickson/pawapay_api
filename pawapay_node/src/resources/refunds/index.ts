@@ -3,6 +3,7 @@ import NetworkHandler from "@config/NetworkManager";
 import { RefundResponse, RefundTransaction } from "../../types/Payout";
 import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
 import InternalLogger from "@utils/InternalLogger";
+import * as console from "node:console";
 
 @singleton()
 @autoInjectable()
@@ -39,11 +40,12 @@ export default class Refunds extends InternalLogger {
         }
       );
 
-      this.logSuccess(response);
+      console.log("Sending refund request for deposit:", refundData.depositId, "with refundId:", refundData.refundId);
+
       return response.data as RefundResponse;
 
     } catch (error: unknown) {
-      this.logError(error);
+      console.error("Refund request failed:", error);
       return this.networkHandler.handleErrors(error);
     }
   }
@@ -65,10 +67,11 @@ export default class Refunds extends InternalLogger {
       const endPoint = this.baseEndpoint + `/${refundId}`;
       const response = await this.networkHandler.getInstance().get(endPoint);
 
-      this.logSuccess(response);
+      console.log("Refund details retrieved successfully:", response.data);
+
       return response.data as RefundTransaction;
     } catch (error: unknown) {
-      this.logError(error);
+      console.error("Refund transaction failed:", error);
       return this.networkHandler.handleErrors(error);
     }
   }

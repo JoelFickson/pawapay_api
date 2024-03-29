@@ -3,6 +3,7 @@ import { autoInjectable, singleton } from "tsyringe";
 import { InitiatePaymentResponse, PaymentData } from "../../types/Payments";
 import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
 import InternalLogger from "@utils/InternalLogger";
+import * as console from "node:console";
 
 @autoInjectable()
 @singleton()
@@ -47,14 +48,14 @@ export default class PaymentsPage extends InternalLogger {
           reason: paymentData.reason
         });
 
-      // this.logSuccess(response);
+      console.log("Sending payment initiation request for deposit:", paymentData.deposit_id, "with amount:", paymentData.price);
 
       return {
         redirectUrl: response.data.redirectUrl,
         error: false
       } as InitiatePaymentResponse;
     } catch (error: unknown) {
-      this.logError(error);
+      console.error("Payment initiation failed:", error);
       return this.networkHandler.handleErrors(error);
     }
   }

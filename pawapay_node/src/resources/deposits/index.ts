@@ -10,7 +10,6 @@ import {
 } from "../../types/Payout";
 import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
 import InternalLogger from "@utils/InternalLogger";
-import * as console from "node:console";
 
 @autoInjectable()
 @singleton()

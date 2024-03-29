@@ -4,6 +4,7 @@ import { autoInjectable, singleton } from "tsyringe";
 import PawapayBaseService from "@utils/PawapayBaseService";
 import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
 import InternalLogger from "@utils/InternalLogger";
+import * as console from "node:console";
 
 @autoInjectable()
 @singleton()
@@ -60,12 +61,12 @@ export default class Payouts extends InternalLogger {
         }
       );
 
-      this.logSuccess(response);
+      console.log("Payout transaction successful:", response.data);
 
       return response.data as PawaPayPayoutTransaction;
     } catch (error) {
 
-      this.logError(error);
+      console.error("Payout transaction failed:", error);
 
       return this.networkHandler.handleErrors(error);
     }
@@ -107,11 +108,11 @@ export default class Payouts extends InternalLogger {
         { formattedTransactions }
       );
 
-      this.logSuccess(response);
+      console.log("Bulk payout transaction successful:", response.data);
 
       return response.data as PawaPayPayoutTransaction[];
     } catch (error) {
-      this.logError(error);
+      console.error("Bulk payout transaction failed:", error);
       return this.networkHandler.handleErrors(error);
     }
   }
@@ -131,12 +132,13 @@ export default class Payouts extends InternalLogger {
   async getPayout(depositId: string): Promise<PawaPayPayoutTransaction | PawaPayNetworkResponse> {
     try {
       const response = await this.networkHandler.getInstance().get(`${this.baseEndpoint}/${depositId}`);
-      this.logSuccess(response);
+
+      console.log("Payout details retrieved successfully:", response.data);
 
       return response.data as PawaPayPayoutTransaction;
     } catch (error) {
 
-      this.logError(error);
+      console.error("Payout transaction failed:", error);
       return this.networkHandler.handleErrors(error);
     }
   }
