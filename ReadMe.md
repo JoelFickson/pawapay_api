@@ -6,3 +6,8 @@ PawaPay is a payment gateway that allows you to accept payments from your custom
 PawaPay into your website or application. You can use this API to create payments, retrieve payment details, and more.
 
 ## Getting Started
+
+### NodeJs
+
+Read the [NodeJs](README.md) documentation to get started with the NodeJs SDK.
+
