@@ -10,6 +10,7 @@ import {
 } from "../../types/Payout";
 import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
 import InternalLogger from "@utils/InternalLogger";
+import * as console from "node:console";
 
 @autoInjectable()
 @singleton()
@@ -98,7 +99,7 @@ export default class Deposits extends InternalLogger {
       const endPoint = this.baseEndpoint + `/${depositId}`;
       const response = await this.networkHandler.getInstance().get(endPoint);
 
-      this.logSuccess(response);
+      console.log("Deposit details retrieved successfully:", response.data);
 
       return response.data as PaymentTransaction[];
     } catch (error) {
@@ -130,9 +131,9 @@ export default class Deposits extends InternalLogger {
         depositId: depositId
       });
 
-      this.logSuccess(data);
+      console.log(data);
 
-      return data;
+      return data as ResendCallbackResponse;
     } catch (error: unknown) {
       this.logError(error);
       return this.networkHandler.handleErrors(error);
