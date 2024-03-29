@@ -2,7 +2,7 @@ export interface PaymentData {
   deposit_id: string;
   price: number;
   title: string;
-  artist_name: string;
+  name?: string;
   currency: string;
   basePaymentCountryIso: string;
   reason: string;
