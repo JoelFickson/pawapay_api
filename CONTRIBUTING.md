@@ -1,21 +1,20 @@
 ## PawaPay-API contribution guide
+
 Thank you for expressing interest in contributing to the project. Please make sure you read the guide thoroughly before contributing  as it will lessen the chances of any issues arising during the process.
 
 ### Getting Started
+
 Before everything, please post an issue and check that it is a new issue by searching it up. This will prevent two peope working on the same issue and efforts being wasted.
 
 #### Prerequisites
+
 1. [Git](https://git-scm.com/)
 2. [NodeJS](https://nodejs.org/en/)
 3. [Typescript](typescriptlang.org)/ Javascript
 
-
 ### First Time Contributer
 
 If you have never contributed to open-source and would love to start with this project, then we got you. [Follow this guide by freecodecamp](https://www.freecodecamp.org/news/how-to-contribute-to-open-source-projects-beginners-guide/)
-
-
-
 
 ## PawaPay NodeJs SDK
 
@@ -68,8 +67,7 @@ try {
 }
 
 ```
+
 ## Getting Help
 
-If you get any hiccups please feel free to contact the maintainers Or open up an issue. Good Luck!!! 🫂 
-
-
+If you get any hiccups please feel free to contact the maintainers Or open up an issue. Good Luck!!! 🫂
