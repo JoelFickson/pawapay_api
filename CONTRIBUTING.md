@@ -27,7 +27,7 @@ the [PawaPay API documentation](https://docs.pawapay.co.uk/).
 ### Installation
 
 ```bash
-npm install pawapay-node
+npm install pawapay_node
 ```
 
 ### Payments Page
