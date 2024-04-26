@@ -1,19 +1,17 @@
-import NetworkHandler from "@config/NetworkManager";
-import { PawaPayPayoutTransaction, PayoutTransaction } from "../../types/Payout";
+import NetworkHandler from "@config/networkManager";
+import { PawaPayPayoutTransaction, PayoutTransaction } from "types/payout";
 import { autoInjectable, singleton } from "tsyringe";
-import PawapayBaseService from "@utils/PawapayBaseService";
-import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
-import InternalLogger from "@utils/InternalLogger";
-import * as console from "node:console";
+import PawapayBaseService from "@utils/pawapayBaseService";
+import { PawaPayNetworkResponse } from "types/pawaPayErrorResponse";
+import internalLogger from "@utils/internalLogger";
 
 @autoInjectable()
 @singleton()
-export default class Payouts extends InternalLogger {
+export default class Payouts {
 
   private readonly baseEndpoint;
 
   constructor(protected networkHandler: NetworkHandler, protected pawapayBaseService: PawapayBaseService) {
-    super("Payouts");
     this.baseEndpoint = "/payouts";
   }
 
@@ -43,7 +41,8 @@ export default class Payouts extends InternalLogger {
     try {
       const phoneNumber = this.pawapayBaseService.formatPhoneNumber(transaction.phoneNumber);
 
-      console.log("Sending payout to", phoneNumber, "the amount of", transaction.amount, "with payoutId", transaction.payoutId, "and currency", transaction.currency);
+      internalLogger.info("Sending payout to" + phoneNumber + " the amount of" + transaction.amount +
+        " with payoutId " + transaction.payoutId + "and currency" + transaction.currency);
 
       const response = await this.networkHandler.getInstance().post(
         this.baseEndpoint,
@@ -61,12 +60,12 @@ export default class Payouts extends InternalLogger {
         }
       );
 
-      console.log("Payout transaction successful:", response.data);
+      internalLogger.info("Payout transaction successful: " + response.data);
 
       return response.data as PawaPayPayoutTransaction;
     } catch (error) {
 
-      console.error("Payout transaction failed:", error);
+      internalLogger.error("Payout transaction failed: " + error);
 
       return this.networkHandler.handleErrors(error);
     }

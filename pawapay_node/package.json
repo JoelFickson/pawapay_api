@@ -2,7 +2,8 @@
   "name": "pawapay_api",
   "version": "0.0.16",
   "description": "Pawapay Gateway API Wrapper",
-  "main": "./dist/index.js",
+  "main": "../examples/nodejs/node_modules/pawapay_api/dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p . && tsc-alias",
     "format": "prettier --write 'src/**/*.ts'"
@@ -27,7 +28,7 @@
     "typescript": "^5.2.2"
   },
   "files": [
-    "dist",
+    "../examples/nodejs/node_modules/pawapay_api/dist",
     "@types/*",
     "package.json",
     "../ReadMe.md"

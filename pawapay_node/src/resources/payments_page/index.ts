@@ -1,18 +1,16 @@
-import NetworkHandler from "@config/NetworkManager";
+import NetworkHandler from "@config/networkManager";
 import { autoInjectable, singleton } from "tsyringe";
-import { InitiatePaymentResponse, PaymentData } from "../../types/Payments";
-import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
-import InternalLogger from "@utils/InternalLogger";
-import * as console from "node:console";
+import { InitiatePaymentResponse, PaymentData } from "types/payments";
+import { PawaPayNetworkResponse } from "types/pawaPayErrorResponse";
+import internalLogger from "@utils/internalLogger";
 
 @autoInjectable()
 @singleton()
-export default class PaymentsPage extends InternalLogger {
+export default class PaymentsPage {
 
   private readonly baseEndpoint;
 
   constructor(protected networkHandler: NetworkHandler) {
-    super("PaymentsPage");
     this.baseEndpoint = "v1/widget/sessions";
   }
 
@@ -48,14 +46,14 @@ export default class PaymentsPage extends InternalLogger {
           reason: paymentData.reason
         });
 
-      console.log("Sending payment initiation request for deposit:", paymentData.deposit_id, "with amount:", paymentData.price);
+      internalLogger.info("Sending payment initiation request for deposit:", paymentData.deposit_id, "with amount:", paymentData.price);
 
       return {
         redirectUrl: response.data.redirectUrl,
         error: false
       } as InitiatePaymentResponse;
     } catch (error: unknown) {
-      console.error("Payment initiation failed:", error);
+      internalLogger.error("Payment initiation failed:", error);
       return this.networkHandler.handleErrors(error);
     }
   }
