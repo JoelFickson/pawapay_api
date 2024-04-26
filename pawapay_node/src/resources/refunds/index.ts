@@ -1,18 +1,16 @@
 import { autoInjectable, singleton } from "tsyringe";
-import NetworkHandler from "@config/NetworkManager";
-import { RefundResponse, RefundTransaction } from "../../types/Payout";
-import { PawaPayNetworkResponse } from "../../types/PawaPayErrorResponse";
-import InternalLogger from "@utils/InternalLogger";
-import * as console from "node:console";
+import NetworkHandler from "@config/networkManager";
+import { RefundResponse, RefundTransaction } from "types/payout";
+import { PawaPayNetworkResponse } from "types/pawaPayErrorResponse";
+import internalLogger from "@utils/internalLogger";
 
 @singleton()
 @autoInjectable()
-export default class Refunds extends InternalLogger {
+export default class Refunds {
 
   private readonly baseEndpoint;
 
   constructor(protected networkHandler: NetworkHandler) {
-    super("Refunds");
     this.baseEndpoint = "/refunds";
   }
 
@@ -40,12 +38,12 @@ export default class Refunds extends InternalLogger {
         }
       );
 
-      console.log("Sending refund request for deposit:", refundData.depositId, "with refundId:", refundData.refundId);
+      internalLogger.info("Sending refund request for deposit: " + refundData.depositId + "with refundId: " + refundData.refundId);
 
       return response.data as RefundResponse;
 
     } catch (error: unknown) {
-      console.error("Refund request failed:", error);
+      internalLogger.error("Refund request failed: " + error);
       return this.networkHandler.handleErrors(error);
     }
   }
@@ -67,11 +65,11 @@ export default class Refunds extends InternalLogger {
       const endPoint = this.baseEndpoint + `/${refundId}`;
       const response = await this.networkHandler.getInstance().get(endPoint);
 
-      console.log("Refund details retrieved successfully:", response.data);
+      internalLogger.info("Refund details retrieved successfully: " + response.data);
 
       return response.data as RefundTransaction;
     } catch (error: unknown) {
-      console.error("Refund transaction failed:", error);
+      internalLogger.error("Refund transaction failed: " + error);
       return this.networkHandler.handleErrors(error);
     }
   }

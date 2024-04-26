@@ -1,4 +1,4 @@
-import { Correspondent, MoMoCurrency } from "@utils/MoMoOps";
+import { Correspondent, MoMoCurrency } from "@utils/moMoOps";
 
 export interface PaymentTransaction {
   depositId: string;

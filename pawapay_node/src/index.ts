@@ -4,7 +4,7 @@ import PaymentsPage from "@resources/payments_page";
 import Refunds from "@resources/refunds";
 import Deposits from "@resources/deposits";
 import Payouts from "@resources/payouts";
-import PawapayBaseService from "@utils/PawapayBaseService";
+import PawapayBaseService from "@utils/pawapayBaseService";
 
 const pawaPaymentsPage = container.resolve(PaymentsPage);
 
@@ -13,8 +13,8 @@ const pawaPayDeposits = container.resolve(Deposits);
 const pawaPayPayouts = container.resolve(Payouts);
 const pawapayBaseService = container.resolve(PawapayBaseService);
 
-export * from "./types/Payments";
-export * from "./types/Payout";
+export * from "types/payments";
+export * from "types/payout";
 
 export {
   pawaPaymentsPage,

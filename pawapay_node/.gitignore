@@ -1,4 +1,4 @@
 .idea
 node_modules
-dist
+../examples/nodejs/node_modules/pawapay_api/dist
 pawapay_api.iml

@@ -11,6 +11,9 @@
       "@resources/*": [
         "resources/*"
       ],
+      "types/*": [
+        "types/*"
+      ],
       "@config/*": [
         "config/*"
       ],
@@ -31,7 +34,7 @@
     "noImplicitReturns": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "./dist",
+    "outDir": "../examples/nodejs/node_modules/pawapay_api/dist",
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,

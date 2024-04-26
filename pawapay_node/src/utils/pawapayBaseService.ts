@@ -1,5 +1,5 @@
 import { autoInjectable, singleton } from "tsyringe";
-import { PawaPayNetworkResponse } from "../types/PawaPayErrorResponse";
+import { PawaPayNetworkResponse } from "types/pawaPayErrorResponse";
 
 @autoInjectable()
 @singleton()

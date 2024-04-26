@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -126,7 +128,7 @@ pub struct PaymentTransaction {
 pub struct PawaPayPayoutTransaction {
     pub payoutId: String,
     pub status: PayoutStatus,
-    pub created: string,
+    pub created: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

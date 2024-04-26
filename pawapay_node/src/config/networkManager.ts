@@ -1,7 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestHeaders } from "axios";
 import { autoInjectable, singleton } from "tsyringe";
 import Constants from "@config/Constants";
-import { PawaPayNetworkResponse } from "../types/PawaPayErrorResponse";
+import { PawaPayNetworkResponse } from "types/pawaPayErrorResponse";
+import internalLogger from "@utils/internalLogger";
 
 @autoInjectable()
 @singleton()
@@ -35,11 +36,12 @@ class NetworkHandler {
   }
 
   public handleErrors(error: unknown): PawaPayNetworkResponse {
+    internalLogger.error("Error occurred " + error);
 
     let errorMessage = "An unknown error occurred";
     let statusCode = 500;
     let errorObject = "{}";
-    
+
     if (axios.isAxiosError(error) && error.response) {
       statusCode = error.response.status;
 
@@ -48,7 +50,6 @@ class NetworkHandler {
         errorMessage = data.message || data.error || errorMessage;
         errorObject = JSON.stringify(data);
       } catch {
-
         errorMessage = "Failed to parse error response";
       }
     }
@@ -66,10 +67,11 @@ class NetworkHandler {
         new Promise((resolve) => {
           resolve(response);
         }),
-      (error) =>
-        new Promise((_, reject) => {
+      (error) => {
+        return new Promise((_, reject) => {
           reject(error);
-        })
+        });
+      }
     );
   }
 }
