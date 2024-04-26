@@ -36,7 +36,7 @@ class NetworkHandler {
   }
 
   public handleErrors(error: unknown): PawaPayNetworkResponse {
-    internalLogger.error("Error occurred" + error);
+    internalLogger.error("Error occurred " + error);
 
     let errorMessage = "An unknown error occurred";
     let statusCode = 500;
@@ -67,10 +67,11 @@ class NetworkHandler {
         new Promise((resolve) => {
           resolve(response);
         }),
-      (error) =>
-        new Promise((_, reject) => {
+      (error) => {
+        return new Promise((_, reject) => {
           reject(error);
-        })
+        });
+      }
     );
   }
 }
