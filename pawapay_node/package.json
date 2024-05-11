@@ -1,6 +1,6 @@
 {
   "name": "pawapay_api",
-  "version": "0.0.18",
+  "version": "0.0.17",
   "description": "Pawapay Gateway API Wrapper",
   "main": "./dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,7 +28,7 @@
     "typescript": "^5.2.2"
   },
   "files": [
-    "../examples/nodejs/node_modules/pawapay_api/dist",
+    "dist",
     "@types/*",
     "package.json",
     "../ReadMe.md"
