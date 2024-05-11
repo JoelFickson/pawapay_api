@@ -3,7 +3,6 @@
   "version": "0.0.19",
   "description": "Pawapay Gateway API Wrapper",
   "main": "./dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p . && tsc-alias",
     "format": "prettier --write 'src/**/*.ts'"
