@@ -53,6 +53,9 @@ jobs:
       - name: Build the package
         run: yarn build
 
+      - name: Verify dist folder
+        run: ls -la dist
+
       - name: Bump version & push
         run: |
           git config --global user.name 'JoelFickson CI USER'
