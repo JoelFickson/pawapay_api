@@ -1,0 +1,1 @@
+{"version":3,"file":"pawapayBaseService.d.ts","sourceRoot":"","sources":["../../src/utils/pawapayBaseService.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,sBAAsB,EAAE,MAAM,4BAA4B,CAAC;AAIpE,MAAM,CAAC,OAAO,OAAO,kBAAkB;IAErC,iBAAiB,CAAC,WAAW,EAAE,MAAM,GAAG,MAAM;IAI9C;;;;;;;;;;;;;;;;;OAiBG;IACH,sBAAsB,CAAC,QAAQ,EAAE,OAAO,GAAG,QAAQ,IAAI,sBAAsB;CAc9E"}

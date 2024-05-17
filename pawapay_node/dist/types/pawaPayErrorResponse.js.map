@@ -1,0 +1,1 @@
+{"version":3,"file":"pawaPayErrorResponse.js","sourceRoot":"","sources":["../../src/types/pawaPayErrorResponse.ts"],"names":[],"mappings":"","sourcesContent":["export interface PawaPayNetworkResponse {\n  errorMessage: string;\n  statusCode: number;\n  errorObject: string;\n}"]}
