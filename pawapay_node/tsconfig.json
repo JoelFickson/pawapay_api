@@ -34,7 +34,7 @@
     "noImplicitReturns": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "../examples/nodejs/node_modules/pawapay_api/dist",
+    "outDir": "./dist",
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
