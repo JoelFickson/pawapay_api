@@ -54,7 +54,7 @@ jobs:
         run: yarn build
 
       - name: Verify dist folder
-        run: ls -la dist
+        run: ls -la
 
       - name: Bump version & push
         run: |
