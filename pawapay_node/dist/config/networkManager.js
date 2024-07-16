@@ -20,7 +20,7 @@ let NetworkHandler = class NetworkHandler {
     axiosInstance;
     constructor() {
         const pawaPayJwt = process.env.PAWAPAY_JWT;
-        const environment = process.env.Node_ENV || "development";
+        const environment = process.env.PAWAPAY_ENV || "development";
         const baseURL = environment.toLowerCase() === "production" ?
             Constants_1.default.URLs[Constants_1.default["_PAWA_PAY_PROD_URL"]] :
             Constants_1.default.URLs[Constants_1.default["_PAWA_PAY_SANDBOX_URL"]];
