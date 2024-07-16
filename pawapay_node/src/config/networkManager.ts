@@ -11,7 +11,7 @@ class NetworkHandler {
 
   constructor() {
     const pawaPayJwt = process.env.PAWAPAY_JWT;
-    const environment = process.env.Node_ENV || "development";
+    const environment = process.env.PAWAPAY_ENV || "development";
 
     const baseURL = environment.toLowerCase() === "production" ?
       Constants.URLs[Constants["_PAWA_PAY_PROD_URL"]] :
