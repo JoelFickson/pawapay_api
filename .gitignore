@@ -1,4 +1,5 @@
 pawapay_node/node_modules
 pawapay_rust/target
 .idea
+pawapay_node/dist
 
